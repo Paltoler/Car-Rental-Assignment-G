@@ -13,6 +13,11 @@
 </head>
 
 <body>
+    <script type="text/javascript">
+        caches.delete("blazor-resources-/").then(function (e) {
+            console.log("'blazor-resources-/' cache deleted");
+        });
+    </script>
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />

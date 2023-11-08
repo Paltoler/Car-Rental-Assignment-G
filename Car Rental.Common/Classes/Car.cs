@@ -3,25 +3,18 @@ using Car_Rental.Common.Interfaces;
 
 namespace Car_Rental.Common.Classes
 {
-    public class Car : IVehicle
+    public class Car : Vehicle
     {
-        public string RegNo { get; set; }
-        public string Make { get; set; }
-        public int Odometer { get; set; }
-        public double CostPerKm { get; set; }
-        public VehicleTypes VehicleType { get; set; }
-        public int CostPerDay { get; set; }
-        public VehicleStatuses VehicleStatus { get; set; }
 
-        public Car(string regNo, string make, int odometer, double costPerKm, VehicleTypes vehicleType, int costPerDay)
-        {
-            RegNo = regNo;
-            Make = make;
-            Odometer = odometer;
-            CostPerKm = costPerKm;
-            VehicleType = vehicleType;
-            CostPerDay = costPerDay;
-            VehicleStatus = VehicleStatuses.Available;
+        public Car(int Id, string regNo, string make, int odometer, VehicleTypes vehicleType, double costPerKm) :
+            base(Id, regNo, make, odometer, costPerKm) 
+        { VehicleType = vehicleType;
+            if (vehicleType.Equals(VehicleTypes.Sedan)) CostPerDay = 100;
+            if (vehicleType.Equals(VehicleTypes.Combi)) CostPerDay = 200;
+            if (vehicleType.Equals(VehicleTypes.Van)) CostPerDay = 300;
         }
+
+
+        
     }
 }

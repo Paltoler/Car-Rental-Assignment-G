@@ -7,20 +7,24 @@ namespace Car_Rental.Common.Classes
     {
         
 
-        public Booking(IVehicle vehicle, IPerson customer, int kmRented, DateTime dateRented)
+        public Booking(int id, IVehicle vehicle, IPerson customer, int kmRented, DateTime dateRented)
         {
+            Id = id;
             Vehicle = vehicle;
             Customer = customer;
             KmRented = kmRented;
             DateRented = dateRented;
             Status = BookingStatuses.Open;
-            vehicle.VehicleStatus = VehicleStatuses.Booked;
-            bookingNo ++;
-            BookingNumber = bookingNo; 
+            vehicle.VehicleStatus = VehicleStatuses.Booked;           
         }
 
-        private static int bookingNo = 0;
-        public int BookingNumber { get; set; }
+        public Booking()
+        {
+
+        }
+
+        
+        public int Id { get; set; }
         public IVehicle Vehicle { get; set; }
         public IPerson Customer { get; set; }
         public int KmRented { get; set; }
@@ -32,11 +36,11 @@ namespace Car_Rental.Common.Classes
         public void ReturnVehicle(IVehicle vehicle, int kmReturned, DateTime dateReturned)
         {
             vehicle.VehicleStatus = VehicleStatuses.Available;
-            this.KmReturned = kmReturned;
-            this.DateReturned = dateReturned;
-            this.Status = BookingStatuses.Closed;
-            if(this.DateReturned.HasValue)
-            this.Cost = (int)(((((DateTime)dateReturned - this.DateRented).Days + 1) * vehicle.CostPerDay) + ((kmReturned - this.KmRented) * vehicle.CostPerKm));                        
+            KmReturned = kmReturned;
+            DateReturned = dateReturned;
+            Status = BookingStatuses.Closed;
+            //if (DateReturned.HasValue)
+            Cost = (int)((((dateReturned - DateRented).Days + 1) * vehicle.CostPerDay) + ((kmReturned - KmRented) * vehicle.CostPerKm));                    
         }
     }
 
